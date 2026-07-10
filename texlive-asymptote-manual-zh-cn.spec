@@ -1,35 +1,22 @@
-Name:		texlive-asymptote-manual-zh-cn
-Version:	15878
-Release:	2
+%global tl_name asymptote-manual-zh-cn
+%global tl_revision 15878
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
+Release:	1
 Summary:	A Chinese translation of the asymptote manual
 Group:		Publishing
-URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/asymptote-manual-zh-cn
+URL:		https://www.ctan.org/tex-archive/info/asymptote-manual-zh-cn
 License:	lgpl
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-manual-zh-cn.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-manual-zh-cn.doc.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-manual-zh-cn.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-manual-zh-cn.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-This is an (incomplete, simplified) Chinese translation of the
-Asymptote manual.
+This is an (incomplete, simplified) Chinese translation of the Asymptote
+manual.
 
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/doc/support/asymptote-manual-zh-cn
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
